@@ -18,6 +18,7 @@ export default function CardContent({ species }: { species: Species }) {
   return (
     <>
       {/* Detailed Species View */}
+
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="mt-3 w-full">Learn More</Button>
