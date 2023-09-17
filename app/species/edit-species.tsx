@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { useState, type BaseSyntheticEvent } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import SearchBar from "./search-bar";
 type Species = Database["public"]["Tables"]["species"]["Row"];
 
 const kingdoms = z.enum(["Animalia", "Plantae", "Fungi", "Protista", "Archaea", "Bacteria"]);
@@ -113,6 +114,19 @@ export default function EditSpecies({ species }: { species: Species }) {
     router.refresh();
   };
 
+  //Autofill Wiki search results
+  const updateResults = (data: string[]) => {
+    const resultData: FormData = {
+      kingdom: form.getValues().kingdom,
+      scientific_name: form.getValues().scientific_name,
+      common_name: form.getValues().common_name,
+      description: data[1],
+      total_population: form.getValues().total_population,
+      image: data[0],
+    };
+    form.reset(resultData);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -125,6 +139,12 @@ export default function EditSpecies({ species }: { species: Species }) {
           <DialogTitle>Edit Species</DialogTitle>
           <DialogDescription>
             Edit a new species here. Click &quot;Edit Species&quot; below when you&apos;re done.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogHeader>
+          <DialogTitle>Autofill from Wikipedia Article</DialogTitle>
+          <DialogDescription>
+            <SearchBar updateResults={updateResults} />
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
