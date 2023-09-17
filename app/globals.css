@@ -82,3 +82,8 @@
       "calt" 1;
   }
 }
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+}

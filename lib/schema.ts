@@ -34,13 +34,13 @@ export interface Database {
       species: {
         Row: {
           author: string;
-          common_name: string | null;
-          description: string | null;
+          common_name: string | undefined;
+          description: string | undefined;
           id: number;
-          image: string | null;
+          image: string | undefined;
           kingdom: Database["public"]["Enums"]["kingdom"];
           scientific_name: string;
-          total_population: number | null;
+          total_population: number | undefined;
         };
         Insert: {
           author: string;
