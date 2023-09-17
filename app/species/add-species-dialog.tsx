@@ -113,7 +113,7 @@ export default function AddSpeciesDialog({ userId }: { userId: string }) {
     router.refresh();
   };
 
-  //autofill Wiki search results
+  //Autofill Wiki search results
   const updateResults = (data: string[]) => {
     const resultData: FormData = {
       kingdom: form.getValues().kingdom,
@@ -138,10 +138,13 @@ export default function AddSpeciesDialog({ userId }: { userId: string }) {
         <DialogHeader>
           <DialogTitle>Add Species</DialogTitle>
           <DialogDescription>
-            <SearchBar updateResults={updateResults} />
-          </DialogDescription>
-          <DialogDescription>
             Add a new species here. Click &quot;Add Species&quot; below when you&apos;re done.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogHeader>
+          <DialogTitle>Autofill from Wikipedia Article</DialogTitle>
+          <DialogDescription>
+            <SearchBar updateResults={updateResults} />
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

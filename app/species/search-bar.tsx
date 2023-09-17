@@ -4,22 +4,23 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState, type FC } from "react";
 
 interface SearchBarProps {
-  // Define the expected prop types
   updateResults: (data: string[]) => void;
 }
+
+//API Response outline
 interface ApiResponse {
   thumbnail?: {
     source?: string;
   };
   extract?: string;
 }
+
 const SearchBar: FC<SearchBarProps> = ({ updateResults }) => {
   const [query, setQuery] = useState<string>("");
   const { toast } = useToast();
 
-  //make API fetch
   const fetchArticle = async () => {
-    //empty input
+    //Empty input
     if (query.length < 1) {
       toast({
         title: "INVALID INPUT",
@@ -28,6 +29,7 @@ const SearchBar: FC<SearchBarProps> = ({ updateResults }) => {
       return;
     }
 
+    //Make API fetch
     const link = `https://en.wikipedia.org/api/rest_v1/page/summary/${query}`;
 
     try {
@@ -36,7 +38,7 @@ const SearchBar: FC<SearchBarProps> = ({ updateResults }) => {
         // Article exists
         const data: ApiResponse = (await response.json()) as ApiResponse;
         if (data) {
-          //update state based on search results
+          //Update state based on search results
           const imageURL: string = data.thumbnail?.source ?? "";
           const description: string = data.extract ?? "";
           updateResults([imageURL, description]);
@@ -76,9 +78,9 @@ const SearchBar: FC<SearchBarProps> = ({ updateResults }) => {
         onChange={(event) => {
           setQuery(event.target.value);
         }}
-        placeholder="Search..."
+        placeholder="Search Article Name..."
       />
-      <Button onClick={() => void fetchArticle()}>Search</Button>
+      <Button onClick={() => void fetchArticle()}>Autofill</Button>
     </div>
   );
 };
