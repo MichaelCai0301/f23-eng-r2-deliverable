@@ -20,7 +20,7 @@ export default async function SpeciesList() {
 
   const { data: species } = await supabase.from("species").select("*");
 
-  //User entered procted route -> authenticated
+  //User entered protected route -> update that user has authenticated
   const { data: userAuthStatus } = await supabase.from("profiles").select("authenticated").eq("id", session.user.id);
   if (userAuthStatus?.[0]) {
     if (!userAuthStatus[0].authenticated) {

@@ -1,13 +1,7 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useState, type FC } from "react";
-
-interface SearchBarProps {
-  updateResults: (data: string[]) => void;
-}
+import { useState } from "react";
 
 //API Response outline
 interface ApiResponse {
@@ -17,7 +11,7 @@ interface ApiResponse {
   extract?: string;
 }
 
-const SearchBar: FC<SearchBarProps> = ({ updateResults }) => {
+export default function SearchBar({ updateResults }: { updateResults: (data: string[]) => void }) {
   const [query, setQuery] = useState<string>("");
   const { toast } = useToast();
 
@@ -85,6 +79,4 @@ const SearchBar: FC<SearchBarProps> = ({ updateResults }) => {
       <Button onClick={() => void fetchArticle()}>Autofill</Button>
     </div>
   );
-};
-
-export default SearchBar;
+}
