@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
@@ -11,7 +13,7 @@ interface ApiResponse {
   extract?: string;
 }
 
-export default function SearchBar({ updateResults }: { updateResults: (data: string[]) => void }) {
+const SearchBar = ({ updateResults }: { updateResults: (data: string[]) => void }) => {
   const [query, setQuery] = useState<string>("");
   const { toast } = useToast();
 
@@ -79,4 +81,6 @@ export default function SearchBar({ updateResults }: { updateResults: (data: str
       <Button onClick={() => void fetchArticle()}>Autofill</Button>
     </div>
   );
-}
+};
+
+export default SearchBar;
