@@ -23,7 +23,7 @@ export interface Database {
           display_name?: string;
           email?: string;
           id?: string;
-          authenticated: boolean;
+          authenticated?: boolean;
         };
         Relationships: [
           {
