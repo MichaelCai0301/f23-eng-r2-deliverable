@@ -9,18 +9,21 @@ export interface Database {
           display_name: string;
           email: string;
           id: string;
+          authenticated: boolean;
         };
         Insert: {
           biography?: string | null;
           display_name: string;
           email: string;
           id: string;
+          authenticated: boolean;
         };
         Update: {
           biography?: string | null;
           display_name?: string;
           email?: string;
           id?: string;
+          authenticated: boolean;
         };
         Relationships: [
           {

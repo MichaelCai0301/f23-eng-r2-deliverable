@@ -25,12 +25,17 @@ export default async function SpeciesList() {
       </div>
       <Separator className="my-4" />
       <div className="flex flex-wrap justify-center">
-        {users?.map((profile) => (
-          <>
-            <UserCard key={profile.id} {...profile} />
-            <Separator className="my-4" />
-          </>
-        ))}
+        {users?.map((profile) => {
+          //Only print authenticated users
+          if (profile.authenticated) {
+            return (
+              <>
+                <UserCard key={profile.id} {...profile} />
+                <Separator className="my-4" />
+              </>
+            );
+          }
+        })}
       </div>
     </>
   );

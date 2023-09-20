@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { TypographyH2 } from "@/components/ui/typography";
+import { toast } from "@/components/ui/use-toast";
 import { createServerSupabaseClient } from "@/lib/server-utils";
 import { redirect } from "next/navigation";
 import AddSpeciesDialog from "./add-species-dialog";
@@ -18,6 +19,28 @@ export default async function SpeciesList() {
   }
 
   const { data: species } = await supabase.from("species").select("*");
+
+  //User entered procted route -> authenticated
+  const { data: userAuthStatus } = await supabase.from("profiles").select("authenticated").eq("id", session.user.id);
+  if (userAuthStatus?.[0]) {
+    if (!userAuthStatus[0].authenticated) {
+      const { error } = await supabase.from("profiles").update({ authenticated: true }).eq("id", session.user.id);
+      //Error in updating auth status
+      if (error) {
+        return toast({
+          title: "Something went wrong.",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    }
+  } else {
+    return toast({
+      title: "Something went wrong.",
+      description: "Error in receiving auth status.",
+      variant: "destructive",
+    });
+  }
 
   return (
     <>
