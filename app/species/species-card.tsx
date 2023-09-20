@@ -1,4 +1,3 @@
-"use client";
 import type { Database } from "@/lib/schema";
 import Image from "next/image";
 import CardContent from "./card-content";
